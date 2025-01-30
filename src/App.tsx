@@ -73,7 +73,10 @@ function App() {
           <div className="h-px bg-gray-200 my-6 sm:my-8"></div>
 
           <div className="mb-6 sm:mb-8">
-            <h2 className="text-lg font-semibold text-gray-700 mb-3">Quick Decide</h2>
+            <div className="mb-3">
+              <h2 className="text-lg font-semibold text-gray-700">Quick Decide</h2>
+              <p className="text-sm text-gray-500 mt-1">Randomly select a number between 1 and N - perfect for quick decisions when any choice will do.</p>
+            </div>
             <div className="grid grid-cols-4 sm:flex gap-2 items-center mb-3">
               {QUICK_NUMBERS.map((num) => (
                 <button
@@ -114,85 +117,92 @@ function App() {
 
           <div className="h-px bg-gray-200 my-6 sm:my-8"></div>
 
-          <form onSubmit={addOption} className="mb-6 sm:mb-8">
-            <div className="flex flex-col sm:flex-row gap-2">
-              <input
-                type="text"
-                value={newOption}
-                onChange={(e) => setNewOption(e.target.value)}
-                placeholder="Add an option..."
-                className="flex-1 px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent text-sm sm:text-base"
-              />
-              <button
-                type="submit"
-                className="px-4 py-2 bg-purple-600 text-white rounded-lg hover:bg-purple-700 transition-colors flex items-center justify-center gap-2 text-sm sm:text-base"
-              >
-                <Plus className="w-4 h-4" />
-                Add
-              </button>
+          <div className="mb-6 sm:mb-8">
+            <div className="mb-3">
+              <h2 className="text-lg font-semibold text-gray-700">Specific Options</h2>
+              <p className="text-sm text-gray-500 mt-1">Create your own list of options and let fate decide - perfect for when you need to choose between specific alternatives.</p>
             </div>
-          </form>
 
-          <div className="space-y-2 sm:space-y-3 mb-6 sm:mb-8">
-            {options.map((option) => (
-              <div
-                key={option.id}
-                className="flex items-center justify-between p-2 sm:p-3 bg-gray-50 rounded-lg group"
-              >
-                <span className="text-gray-700 text-sm sm:text-base">{option.text}</span>
+            <form onSubmit={addOption} className="mb-6 sm:mb-8">
+              <div className="flex flex-col sm:flex-row gap-2">
+                <input
+                  type="text"
+                  value={newOption}
+                  onChange={(e) => setNewOption(e.target.value)}
+                  placeholder="Add an option..."
+                  className="flex-1 px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent text-sm sm:text-base"
+                />
                 <button
-                  onClick={() => removeOption(option.id)}
-                  className="text-gray-400 hover:text-red-500 transition-colors p-1"
+                  type="submit"
+                  className="px-4 py-2 bg-purple-600 text-white rounded-lg hover:bg-purple-700 transition-colors flex items-center justify-center gap-2 text-sm sm:text-base"
                 >
-                  <Trash2 className="w-4 h-4" />
+                  <Plus className="w-4 h-4" />
+                  Add
                 </button>
               </div>
-            ))}
-          </div>
+            </form>
 
-          <div className="flex flex-col items-center gap-4 sm:gap-6">
-            <div className="flex gap-2 w-full sm:w-auto">
-              <button
-                onClick={generateRandom}
-                disabled={options.length < 2}
-                className={`flex-1 sm:w-auto px-4 sm:px-6 py-2 sm:py-3 rounded-lg flex items-center justify-center gap-2 text-base sm:text-lg font-semibold transition-all
-                  ${options.length < 2 
-                    ? 'bg-gray-100 text-gray-400 cursor-not-allowed'
-                    : 'bg-purple-600 text-white hover:bg-purple-700 hover:shadow-lg'
-                  }`}
-              >
-                <Dice className="w-5 h-5" />
-                Generate Random
-              </button>
-
-              <button
-                onClick={resetOptions}
-                disabled={options.length === 0}
-                className={`px-4 sm:px-6 py-2 sm:py-3 rounded-lg flex items-center justify-center gap-2 text-base sm:text-lg font-semibold transition-all
-                  ${options.length === 0
-                    ? 'bg-gray-100 text-gray-400 cursor-not-allowed'
-                    : 'bg-red-100 text-red-700 hover:bg-red-200'
-                  }`}
-              >
-                <RotateCcw className="w-5 h-5" />
-                Reset
-              </button>
+            <div className="space-y-2 sm:space-y-3 mb-6 sm:mb-8">
+              {options.map((option) => (
+                <div
+                  key={option.id}
+                  className="flex items-center justify-between p-2 sm:p-3 bg-gray-50 rounded-lg group"
+                >
+                  <span className="text-gray-700 text-sm sm:text-base">{option.text}</span>
+                  <button
+                    onClick={() => removeOption(option.id)}
+                    className="text-gray-400 hover:text-red-500 transition-colors p-1"
+                  >
+                    <Trash2 className="w-4 h-4" />
+                  </button>
+                </div>
+              ))}
             </div>
 
-            {result && (
-              <div className="text-center w-full">
-                <div className="text-sm text-gray-500 mb-2">Result:</div>
-                <div className="text-xl sm:text-2xl font-bold text-purple-600 bg-purple-50 px-4 sm:px-6 py-2 sm:py-3 rounded-lg">
-                  {result}
-                </div>
-              </div>
-            )}
+            <div className="flex flex-col items-center gap-4 sm:gap-6">
+              <div className="flex gap-2 w-full sm:w-auto">
+                <button
+                  onClick={generateRandom}
+                  disabled={options.length < 2}
+                  className={`flex-1 sm:w-auto px-4 sm:px-6 py-2 sm:py-3 rounded-lg flex items-center justify-center gap-2 text-base sm:text-lg font-semibold transition-all
+                    ${options.length < 2 
+                      ? 'bg-gray-100 text-gray-400 cursor-not-allowed'
+                      : 'bg-purple-600 text-white hover:bg-purple-700 hover:shadow-lg'
+                    }`}
+                >
+                  <Dice className="w-5 h-5" />
+                  Decide
+                </button>
 
-            {options.length < 2 && (
-              <p className="text-sm text-gray-500 text-center">
-                Add at least 2 options to generate a random pick
-              </p>
-            )}
+                <button
+                  onClick={resetOptions}
+                  disabled={options.length === 0}
+                  className={`px-4 sm:px-6 py-2 sm:py-3 rounded-lg flex items-center justify-center gap-2 text-base sm:text-lg font-semibold transition-all
+                    ${options.length === 0
+                      ? 'bg-gray-100 text-gray-400 cursor-not-allowed'
+                      : 'bg-red-100 text-red-700 hover:bg-red-200'
+                    }`}
+                >
+                  <RotateCcw className="w-5 h-5" />
+                  Reset
+                </button>
+              </div>
+
+              {result && (
+                <div className="text-center w-full">
+                  <div className="text-sm text-gray-500 mb-2">Result:</div>
+                  <div className="text-xl sm:text-2xl font-bold text-purple-600 bg-purple-50 px-4 sm:px-6 py-2 sm:py-3 rounded-lg">
+                    {result}
+                  </div>
+                </div>
+              )}
+
+              {options.length < 2 && (
+                <p className="text-sm text-gray-500 text-center">
+                  Add at least 2 options to generate a random pick
+                </p>
+              )}
+            </div>
           </div>
         </div>
       </div>
